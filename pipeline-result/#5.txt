@@ -1,0 +1,141 @@
+Started by user unknown or anonymous
+Obtained Jenkinsfile from git https://github.com/Alisonnnmichella/jenkinsPilot.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/piloto/TrabajoPracticoJob
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential jenkins_tp_2
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/piloto/TrabajoPracticoJob/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Alisonnnmichella/jenkinsPilot.git # timeout=10
+Fetching upstream changes from https://github.com/Alisonnnmichella/jenkinsPilot.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/Alisonnnmichella/jenkinsPilot.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 2233464b2ccdbd2c6a4bb6cd20b8079fa9a0183d (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 2233464b2ccdbd2c6a4bb6cd20b8079fa9a0183d # timeout=10
+Commit message: "verify 200 response"
+ > git rev-list --no-walk 66245203c704c78da916d049d019a7b10fe164e9 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+Ejecutar npm install
+[Pipeline] sh
++ npm install
+
+up to date, audited 368 packages in 6s
+
+45 packages are looking for funding
+  run `npm fund` for details
+
+2 vulnerabilities (1 moderate, 1 high)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+Ejecutar npm test push
+[Pipeline] sh
++ npm test
+
+> nodejs-helloworld-api@1.0.0 test
+> jest --forceExit
+
+  console.log
+    Server is listening on port 3000
+
+      at Server.log (index.js:10:13)
+
+PASS ./index.test.js
+  GET /
+    ✓ responds with hello world message in JSON format (141 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        2.095 s, estimated 3 s
+Ran all test suites.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Start Server)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+Starting the server
+[Pipeline] sh
++ npm start
+[Pipeline] sleep
+Sleeping for 10 sec
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Make Request)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+Making a request to the server
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ curl -o /dev/null -s -w %{http_code} http://localhost:3000
+[Pipeline] echo
+Request successful: HTTP 200 OK
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
